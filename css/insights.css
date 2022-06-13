@@ -11,7 +11,7 @@ body {
 }
 #main {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 20vw 80vw;
     grid-template-areas: "sidenav content";
 }
 #sidenav {
@@ -27,7 +27,7 @@ body {
     overflow-y:auto
 }
 #content {
-    margin-left: 20px;
+    width: 100%;
     display: grid;
     grid-area: content;
 }
@@ -63,11 +63,10 @@ body {
 }
 #responsesContent {
     display: none;
-}
-#responsesCont {
     margin-left: -5%;
     margin-top: 40px;
 }
+
 #responsesNav, #responsesResult {
     width: fit-content;
     margin: 0 auto;

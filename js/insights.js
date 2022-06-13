@@ -21,16 +21,16 @@ function createTable(respByEmails, currEmail){
 function hideContent(){
     document.getElementById("infoContent").setAttribute("style", "display: none")
     document.getElementById("responsesContent").setAttribute("style", "display: none")
-
+    const buttons = document.getElementsByClassName("options")
+    for (button of buttons){
+        button.setAttribute("style", "color: white")
+    }
 }
-
-hideContent()
-let responses = JSON.parse(localStorage.getItem("jsonResponses"))
-console.log(responses)
 
 const entry = document.getElementById("entry")
 entry.addEventListener("click", function(){
     hideContent()
+    entry.setAttribute("style", "color: #09BC8A")
     const infoContent = document.getElementById("infoContent")
     removeAllChildNodes(infoContent)
     //finding tourneys
@@ -204,7 +204,7 @@ entry.addEventListener("click", function(){
 
 const resp = document.getElementById("resp")
 resp.addEventListener("click", function(){
-    
+
     let respByEmails = {}
     for (let key in responses){
         for (let email of responses[key]["responses"]){
@@ -224,6 +224,8 @@ resp.addEventListener("click", function(){
     }
     console.log(respByEmails)
     hideContent()
+    resp.setAttribute("style", "color: #09BC8A")
+
     const responsesResultTbody = document.getElementById("responsesResultTbody")
     removeAllChildNodes(responsesResultTbody)
     let currEmail = Object.keys(respByEmails)[0]
@@ -261,6 +263,11 @@ resp.addEventListener("click", function(){
     })
 
 })
+
+hideContent()
+let responses = JSON.parse(localStorage.getItem("jsonResponses"))
+console.log(responses)
+entry.click();
 
 
 
