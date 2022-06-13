@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "css/styles.css"></link>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- <div id = "container">
+            
+            <button class = "button" id = "confirm"><span>Confirm </span></button>
+        </div> -->
+        <button onClick="slide('prev')" id = "moveup">🡩</button>
+
+        <div class = "container">
+            <div class = "pages">
+                <div class = "page one">
+                    <h1 id = "greeting">Get your data from [site] then click the button below!</h1>
+                </div>
+                <div class = "page two">
+                    <h1 id = "jsonHeader">Paste the data here:</h1>
+                    <textarea id = "questionResponses">
+
+                    </textarea>
+                </div>
+                <div class = "page three">
+                    <h1 id = "redirect">Redirecting...</h1>
+                </div>
+            </div>
+
+
+        </div>
+        <button onClick="slide('next')" id = "movedown">🡫</button>
+
+        <script src = "js/script.js"></script>
+    </body>
+</html>
