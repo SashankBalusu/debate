@@ -357,6 +357,7 @@ graph.addEventListener("click", function(){
     graph.setAttribute("style", "color: #09BC8A")
     const graphContent = document.getElementById("graphContent")
     graphContent.setAttribute("style", "display: block")
+    removeAllChildNodes(graphContent)
     //piechart on responses by tourney
     
     let chartNum = 0
