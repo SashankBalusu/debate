@@ -21,10 +21,83 @@ function createTable(respByEmails, currEmail){
 function hideContent(){
     document.getElementById("infoContent").setAttribute("style", "display: none")
     document.getElementById("responsesContent").setAttribute("style", "display: none")
+    document.getElementById("graphContent").setAttribute("style", "display: none")
+
     const buttons = document.getElementsByClassName("options")
     for (button of buttons){
         button.setAttribute("style", "color: white")
     }
+}
+function createChart(el,labelArr, dataArr, question){
+    var data = {
+        labels: labelArr,
+        datasets: [
+            {
+                data: dataArr,
+                backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB"
+                ],
+                hoverBorderColor: [
+                    "#eee","#eee"														
+                ]
+            }]
+    };
+    var piectx = el.getContext("2d");
+    // if (mychart){
+    //     mychart.destroy()
+    // }
+    mychart = new Chart(piectx,{
+        type: 'pie',
+        data: data,
+        options: { 
+            showAllTooltips: true,
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            }, 
+            elements: {
+                arc: {
+                    borderColor: "#fff"
+                }
+            },
+            title: {
+                display: true,
+                text: question,
+                fontSize: 20,
+                padding: 20,
+                fontColor: "black",
+                fontStyle: 'bold',
+                fontFamily: "Heebo",
+                fullWidth: true
+            },
+            legend: {
+                display: true,
+                position: "bottom",
+                labels: {
+                    boxWidth: 30,
+                    fontColor: "black",
+                    fontStyle: 'bold',
+                    fontFamily: "Heebo",
+                    fontSize: 20,
+                    fullWidth: true
+                } 
+            },
+            tooltips: {
+                enabled: false,
+                bodyFontColor: "#efefef",
+                fontStyle: 'Normal',
+                bodyFontFamily: "Montserrat",
+                cornerRadius: 2,
+                backgroundColor: "#333",
+                xPadding: 7,
+                yPadding: 7,
+                caretSize: 5,
+                bodySpacing: 10
+            }
+                        
+        }
+    });
 }
 
 const entry = document.getElementById("entry")
@@ -278,7 +351,52 @@ resp.addEventListener("click", function(){
 
 })
 
+const graph = document.getElementById("graph")
+graph.addEventListener("click", function(){
+    hideContent()
+    graph.setAttribute("style", "color: #09BC8A")
+    const graphContent = document.getElementById("graphContent")
+    graphContent.setAttribute("style", "display: block")
+    //piechart on responses by tourney
+    
+    let chartNum = 0
+    for (let key in responses){
+        let dataObj = {}
+        let labelArr = []
+        let dataArr = []
+        if (responses[key]["questionTitle"].toLowerCase().includes("attending")){
+            chartNum++
+            let dat = responses[key]["responses"]
+            for (let el of dat){
+                if (!(labelArr.includes(el[Object.keys(el)[0]]))){
+                    labelArr.push(el[Object.keys(el)[0]])
+                    dataObj[el[Object.keys(el)[0]]] = 0
+                }
+                else {
+                    dataObj[el[Object.keys(el)[0]]] += 1
+                }
+            }
+            for (el of labelArr){
+                dataArr.push(dataObj[el])
+            }
+            console.log(dataArr, labelArr)
+            let cont = document.createElement("div")
+            cont.classList.add("chart-container")
+            let canvas = document.createElement("canvas")
+            canvas.id = "chart" + chartNum
+            cont.appendChild(canvas)
+            //canvas.setAttribute("style", "width: 400px !important; height: 600px !important;")
+            graphContent.appendChild(cont)
+            createChart(document.getElementById("chart" + chartNum), labelArr, dataArr, responses[key]["questionTitle"])
+        }
+        
+    }
+   
+    
+})
+
 hideContent()
+let mychart
 let responses = JSON.parse(localStorage.getItem("jsonResponses"))
 entry.click();
 

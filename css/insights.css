@@ -132,3 +132,11 @@ table, th, td {
     font-weight:bolder;
     margin-bottom: 40px;
 }
+
+.chart-container {
+    margin: 0 auto;
+    width: 40vw;
+    height: 40vw;
+    margin-top: 30px;
+
+}
