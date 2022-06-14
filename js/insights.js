@@ -69,7 +69,6 @@ entry.addEventListener("click", function(){
             }
         }
     }
-    console.log(tourneyInfo)
     
 
     //finds names of students to access by emails
@@ -82,7 +81,6 @@ entry.addEventListener("click", function(){
             break
         }
     }
-    console.log(namesByEmails)
     for (let tourney in tourneyInfo){
         let peoplegoing = {}
         for (let key in responses){
@@ -115,7 +113,6 @@ entry.addEventListener("click", function(){
                 for (innerkey in peoplegoing){
                     for (item of currQuestionResp){
                         if (innerkey == Object.keys(item)[0]){
-                            console.log(innerkey)
                             for (let innerinnerkey in tourneyInfo){
                                 if (innerinnerkey == tourney){
                                     for (let finalkey in tourneyInfo[innerinnerkey]){
@@ -134,7 +131,6 @@ entry.addEventListener("click", function(){
         }
 
     }
-    console.log(tourneyInfo)
     for (let tourney in tourneyInfo){      
         let entries = []
         let h1 = document.createElement("h1")
@@ -160,7 +156,6 @@ entry.addEventListener("click", function(){
             if (el.length > maxLength){
                 maxLength = el.length
             }
-            console.log(maxLength)
 
         }
         currRow = 0
@@ -177,7 +172,29 @@ entry.addEventListener("click", function(){
                 }
                 let td2 = document.createElement("td")
                 if (el[currRow]){
-                    td2.textContent = el[currRow][Object.keys(el[currRow])[0]] ? el[currRow][Object.keys(el[currRow])[0]] : ""
+                    let flag = false
+                    for (let i = 0; i < el.length;i++){
+                        if (el[currRow][Object.keys(el[currRow])[0]] in el[i]){
+                            if (el[i][el[currRow][Object.keys(el[currRow])[0]]] == Object.keys(el[currRow])[0]){
+                                flag = true
+                            }
+                        }
+
+                    }
+                    if (el[currRow][Object.keys(el[currRow])[0]] == "" || el[currRow][Object.keys(el[currRow])[0]] == "n/a"){
+                        flag = true
+                    }
+                    if (flag){
+                        td.setAttribute("style", "color: #09BC8A")
+                        td2.setAttribute("style", "color: #09BC8A")
+                    }
+                    else {
+                        td.setAttribute("style", "color: #fe7968")
+                        td2.setAttribute("style", "color: #fe7968")
+
+                    }
+                    console.log(el)
+                    td2.textContent = el[currRow][Object.keys(el[currRow])[0]]
                 }
                 else {
                     td2.textContent = ""
@@ -186,7 +203,6 @@ entry.addEventListener("click", function(){
                 tr.appendChild(td2)
             }
             tbody.appendChild(tr)
-            console.log("NEXT ROW")
             currRow++
         }
         
@@ -215,14 +231,12 @@ resp.addEventListener("click", function(){
     }
     for (let key in responses){
         for (let email of responses[key]["responses"]){
-            console.log(responses[key]["responses"])
             let emailFormatted = Object.keys(email).join('')
             let formDict = {}
             formDict[responses[key]["questionTitle"]] = email[emailFormatted]
             respByEmails[emailFormatted].push(formDict)
         }
     }
-    console.log(respByEmails)
     hideContent()
     resp.setAttribute("style", "color: #09BC8A")
 
@@ -266,7 +280,6 @@ resp.addEventListener("click", function(){
 
 hideContent()
 let responses = JSON.parse(localStorage.getItem("jsonResponses"))
-console.log(responses)
 entry.click();
 
 
