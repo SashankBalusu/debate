@@ -633,6 +633,17 @@ responsesByQuestion = {
       ]
    }
 }
-questionResponses.textContent = JSON.stringify(responsesByQuestion)
+
+document.addEventListener('DOMContentLoaded',function(){
+       navigator.clipboard
+           .readText()
+           .then(
+               cliptext =>
+                  (questionResponses.innerText = cliptext),
+                  err => console.log(err)
+           );
+});
+
+//questionResponses.textContent = JSON.stringify(responsesByQuestion)
 
 //console.log(responsesByQuestionDict)
