@@ -45,22 +45,25 @@ responsesByQuestion = {
       "questionTitle":"Email",
       "responses":[
          {
-            "bob@gmail.com":"bob@gmail.com"
+            "ab@gmail.com":"ab@gmail.com"
          },
          {
-            "ricky@gmail.com":"ricky@gmail.com"
+            "ij@gmail.com":"ij@gmail.com"
          },
          {
-            "peter@gmail.com":"peter@gmail.com"
+            "cd@gmail.com":"cd@gmail.com"
          },
          {
-            "hihi@gmail.com":"hihi@gmail.com"
-         },
-         {
-            "sasbal@gmail.com":"sasbal@gmail.com"
+            "kl@gmail.com":"kl@gmail.com"
          },
          {
             "sashankbalusu@gmail.com":"sashankbalusu@gmail.com"
+         },
+         {
+            "gh@gmail.com":"gh@gmail.com"
+         },
+         {
+            "ef@gmail.com":"ef@gmail.com"
          }
       ]
    },
@@ -68,22 +71,25 @@ responsesByQuestion = {
       "questionTitle":"Name",
       "responses":[
          {
-            "bob@gmail.com":"bob dylan"
+            "ab@gmail.com":"a b"
          },
          {
-            "ricky@gmail.com":"ricky rick"
+            "ij@gmail.com":"i j"
          },
          {
-            "peter@gmail.com":"peter gold"
+            "cd@gmail.com":"c d"
          },
          {
-            "hihi@gmail.com":"hi hi"
-         },
-         {
-            "sasbal@gmail.com":"sas bal"
+            "kl@gmail.com":"k l"
          },
          {
             "sashankbalusu@gmail.com":"sashank balusu"
+         },
+         {
+            "gh@gmail.com":"g h"
+         },
+         {
+            "ef@gmail.com":"e f"
          }
       ]
    },
@@ -91,22 +97,25 @@ responsesByQuestion = {
       "questionTitle":"Attending SD1?",
       "responses":[
          {
-            "bob@gmail.com":"yes"
+            "ab@gmail.com":"yes"
          },
          {
-            "ricky@gmail.com":"yes"
+            "ij@gmail.com":"yes"
          },
          {
-            "peter@gmail.com":"yes"
+            "cd@gmail.com":"yes"
          },
          {
-            "hihi@gmail.com":"yes"
-         },
-         {
-            "sasbal@gmail.com":"yes"
+            "kl@gmail.com":"yes"
          },
          {
             "sashankbalusu@gmail.com":"yes"
+         },
+         {
+            "gh@gmail.com":"yes"
+         },
+         {
+            "ef@gmail.com":"yes"
          }
       ]
    },
@@ -114,45 +123,103 @@ responsesByQuestion = {
       "questionTitle":"Event at SD1?",
       "responses":[
          {
-            "bob@gmail.com":"ld"
+            "ab@gmail.com":"ld"
          },
          {
-            "ricky@gmail.com":"ld"
+            "ij@gmail.com":"pf"
          },
          {
-            "peter@gmail.com":"pf"
+            "cd@gmail.com":"ld"
          },
          {
-            "hihi@gmail.com":"ld"
-         },
-         {
-            "sasbal@gmail.com":"pf"
+            "kl@gmail.com":"pf"
          },
          {
             "sashankbalusu@gmail.com":"ld"
+         },
+         {
+            "gh@gmail.com":"pf"
+         },
+         {
+            "ef@gmail.com":"pf"
          }
       ]
    },
    "09ed269a":{
-      "questionTitle":"Partner at SD1(N/A if none)",
+      "questionTitle":"Partner at SD1 (N/A if none)",
       "responses":[
          {
-            "bob@gmail.com":"n/a"
+            "ab@gmail.com":"n/a"
          },
          {
-            "ricky@gmail.com":"n/a"
+            "ij@gmail.com":"k l"
          },
          {
-            "peter@gmail.com":"sas bal"
+            "cd@gmail.com":"n/a"
          },
          {
-            "hihi@gmail.com":"n/a"
-         },
-         {
-            "sasbal@gmail.com":"peter gold"
+            "kl@gmail.com":"i j"
          },
          {
             "sashankbalusu@gmail.com":"n/a"
+         },
+         {
+            "gh@gmail.com":"e f"
+         },
+         {
+            "ef@gmail.com":"g h"
+         }
+      ]
+   },
+   "756ddae8":{
+      "questionTitle":"Judge at SD1?",
+      "responses":[
+         {
+            "ab@gmail.com":"saturday morning"
+         },
+         {
+            "ij@gmail.com":"saturday afternoon"
+         },
+         {
+            "cd@gmail.com":"saturday morning"
+         },
+         {
+            "kl@gmail.com":"saturday afternoon"
+         },
+         {
+            "sashankbalusu@gmail.com":"saturday morning"
+         },
+         {
+            "gh@gmail.com":"saturday afternoon"
+         },
+         {
+            "ef@gmail.com":"saturday afternoon"
+         }
+      ]
+   },
+   "419612cc":{
+      "questionTitle":"Judge name at SD1",
+      "responses":[
+         {
+            "ab@gmail.com":"judge 2"
+         },
+         {
+            "ij@gmail.com":"judge 6"
+         },
+         {
+            "cd@gmail.com":"judge 3"
+         },
+         {
+            "kl@gmail.com":"judge 7"
+         },
+         {
+            "sashankbalusu@gmail.com":"judge 1"
+         },
+         {
+            "gh@gmail.com":"judge 5"
+         },
+         {
+            "ef@gmail.com":"judge 4"
          }
       ]
    },
@@ -160,22 +227,25 @@ responsesByQuestion = {
       "questionTitle":"Attending SD2?",
       "responses":[
          {
-            "bob@gmail.com":"yes"
+            "ab@gmail.com":"yes"
          },
          {
-            "ricky@gmail.com":"yes"
+            "ij@gmail.com":"yes"
          },
          {
-            "peter@gmail.com":"yes"
+            "cd@gmail.com":"yes"
          },
          {
-            "hihi@gmail.com":"yes"
-         },
-         {
-            "sasbal@gmail.com":"yes"
+            "kl@gmail.com":"yes"
          },
          {
             "sashankbalusu@gmail.com":"yes"
+         },
+         {
+            "gh@gmail.com":"yes"
+         },
+         {
+            "ef@gmail.com":"yes"
          }
       ]
    },
@@ -183,22 +253,25 @@ responsesByQuestion = {
       "questionTitle":"Event at SD2?",
       "responses":[
          {
-            "bob@gmail.com":"ld"
+            "ab@gmail.com":"ld"
          },
          {
-            "ricky@gmail.com":"ld"
+            "ij@gmail.com":"pf"
          },
          {
-            "peter@gmail.com":"cx"
+            "cd@gmail.com":"ld"
          },
          {
-            "hihi@gmail.com":"pf"
+            "kl@gmail.com":"pf"
          },
          {
-            "sasbal@gmail.com":"cx"
+            "sashankbalusu@gmail.com":"ld"
          },
          {
-            "sashankbalusu@gmail.com":"pf"
+            "gh@gmail.com":"pf"
+         },
+         {
+            "ef@gmail.com":"pf"
          }
       ]
    },
@@ -206,22 +279,77 @@ responsesByQuestion = {
       "questionTitle":"Partner at SD2(N/A if none)",
       "responses":[
          {
-            "bob@gmail.com":"n/a"
+            "ab@gmail.com":"n/a"
          },
          {
-            "ricky@gmail.com":"n/a"
+            "ij@gmail.com":"k l"
          },
          {
-            "peter@gmail.com":"sas bal"
+            "cd@gmail.com":"n/a"
          },
          {
-            "hihi@gmail.com":"sashank balusu"
+            "kl@gmail.com":"i j"
          },
          {
-            "sasbal@gmail.com":"peter gold"
+            "sashankbalusu@gmail.com":"n/a"
          },
          {
-            "sashankbalusu@gmail.com":"hi hi"
+            "gh@gmail.com":"e f"
+         },
+         {
+            "ef@gmail.com":"g h"
+         }
+      ]
+   },
+   "05d16228":{
+      "questionTitle":"Judge at SD2?",
+      "responses":[
+         {
+            "ab@gmail.com":"saturday morning"
+         },
+         {
+            "ij@gmail.com":"saturday afternoon"
+         },
+         {
+            "cd@gmail.com":"saturday morning"
+         },
+         {
+            "kl@gmail.com":"saturday afternoon"
+         },
+         {
+            "sashankbalusu@gmail.com":"saturday morning"
+         },
+         {
+            "gh@gmail.com":"saturday afternoon"
+         },
+         {
+            "ef@gmail.com":"saturday afternoon"
+         }
+      ]
+   },
+   "31154a6d":{
+      "questionTitle":"Judge name at SD2",
+      "responses":[
+         {
+            "ab@gmail.com":"judge 2"
+         },
+         {
+            "ij@gmail.com":"judge 6"
+         },
+         {
+            "cd@gmail.com":"judge 3"
+         },
+         {
+            "kl@gmail.com":"judge 7"
+         },
+         {
+            "sashankbalusu@gmail.com":"judge 1"
+         },
+         {
+            "gh@gmail.com":"judge 5"
+         },
+         {
+            "ef@gmail.com":"judge 4"
          }
       ]
    },

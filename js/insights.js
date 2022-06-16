@@ -108,6 +108,8 @@ entry.addEventListener("click", function(){
     removeAllChildNodes(infoContent)
     //finding tourneys
     let tourneyInfo = {}
+    let judgeInfo = {}
+
     for (let key in responses){
         if (responses[key]["questionTitle"].toLowerCase().includes("attend")){
             let str = responses[key]["questionTitle"].split(" ")
@@ -125,7 +127,8 @@ entry.addEventListener("click", function(){
             });
 
             let cleanString = cleanLetters.join('');
-            tourneyInfo[cleanString] = {}            
+            tourneyInfo[cleanString] = {}
+            judgeInfo[cleanString] = {}         
         }
     }
 
@@ -179,7 +182,6 @@ entry.addEventListener("click", function(){
                 }
             }
         }
-        //to do: partner, event question must ask tournament name to ensusre accuracy
         for (let key in responses){
             if (responses[key]["questionTitle"].toLowerCase().includes("partner") && responses[key]["questionTitle"].includes(tourney)){
                 let currQuestionResp = responses[key]["responses"]
@@ -202,6 +204,46 @@ entry.addEventListener("click", function(){
                 }
             }
         }
+        for (let key in responses){
+            if (responses[key]["questionTitle"].toLowerCase().includes("judg") && !(responses[key]["questionTitle"].toLowerCase().includes("name")) && responses[key]["questionTitle"].includes(tourney)){
+                for (let el of responses[key]["responses"]){
+                    if (el[Object.keys(el)[0]] in judgeInfo[tourney]){
+                        for (let newkey in responses){
+                            if (responses[newkey]["questionTitle"].toLowerCase().includes("judg") && (responses[newkey]["questionTitle"].toLowerCase().includes("name")) && responses[newkey]["questionTitle"].includes(tourney)){
+                                for (let innerel of responses[newkey]["responses"]){
+                                    if (Object.keys(innerel)[0] == Object.keys(el)[0]){
+                                        let formJudgeDict = {}
+                                        formJudgeDict[Object.keys(innerel)[0]] = innerel[Object.keys(innerel)[0]]
+                                        judgeInfo[tourney][el[Object.keys(el)[0]]].push(formJudgeDict)
+
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    else {
+                        for (let newkey in responses){
+                            if (responses[newkey]["questionTitle"].toLowerCase().includes("judg") && (responses[newkey]["questionTitle"].toLowerCase().includes("name")) && responses[newkey]["questionTitle"].includes(tourney)){
+                                for (let innerel of responses[newkey]["responses"]){
+                                    if (Object.keys(innerel)[0] == Object.keys(el)[0]){
+                                        let formJudgeDict = {}
+                                        formJudgeDict[Object.keys(innerel)[0]] = innerel[Object.keys(innerel)[0]]
+                                        judgeInfo[tourney][el[Object.keys(el)[0]]] = [formJudgeDict]
+
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+
+        }
+        console.log(judgeInfo)
+        console.log(tourneyInfo)
 
     }
     for (let tourney in tourneyInfo){      
@@ -209,8 +251,12 @@ entry.addEventListener("click", function(){
         let h1 = document.createElement("h1")
         h1.textContent = tourney
         h1.setAttribute("style", "text-align: center;margin-top: 40px")   
-
         h1.classList.add("tourneyName")
+        
+        let h2 = document.createElement("h2")
+        h2.textContent = "Entries: "
+        h2.setAttribute("style", "text-align: center;margin-top: 20px")   
+
         let table = document.createElement("table")
         table.classList.add("content-table")
         table.setAttribute("style", "margin: 0 auto;")
@@ -231,7 +277,7 @@ entry.addEventListener("click", function(){
             }
 
         }
-        currRow = 0
+        let currRow = 0
         //entries = [[{"hi": "aergae"}, {"aergae": "hi"}], [{"we": "wewewewe"}, {"wewewewe": "we"}], [{"aergerag": "pole"}, {"pole": "aergerag"}]]
         for (let i = 0; i < maxLength; i++){
             let tr = document.createElement("tr")
@@ -241,7 +287,7 @@ entry.addEventListener("click", function(){
                     td.textContent = Object.keys(el[currRow])[0]
                 }
                 else {
-                    td.textContent = ""
+                    td.textContent = " "
                 }
                 let td2 = document.createElement("td")
                 if (el[currRow]){
@@ -270,7 +316,7 @@ entry.addEventListener("click", function(){
                     td2.textContent = el[currRow][Object.keys(el[currRow])[0]]
                 }
                 else {
-                    td2.textContent = ""
+                    td2.textContent = " "
                 }
                 tr.appendChild(td)
                 tr.appendChild(td2)
@@ -282,8 +328,62 @@ entry.addEventListener("click", function(){
         table.appendChild(thead)
         table.appendChild(tbody)
         infoContent.appendChild(h1)
+        infoContent.appendChild(h2)
         infoContent.appendChild(table)
 
+        let h2pt2 = document.createElement("h2")
+        h2pt2.textContent = "Judges: "
+        h2pt2.setAttribute("style", "text-align: center;margin-top: 20px")
+        let judges = []
+        for (let key in judgeInfo){
+            if (key == tourney){
+                let judgeTable = document.createElement("table")
+                judgeTable.classList.add("content-table")
+                judgeTable.setAttribute("style", "margin: 0 auto;")
+                let judgeTableHead = document.createElement("thead")
+                judgeTableHead.setAttribute("style", "background: #89adeb;color: #444554;")
+                let judgeTableBody = document.createElement("tbody")
+                for (let innerkey in judgeInfo[key]){
+                    let th = document.createElement("th")
+                    th.textContent = innerkey
+                    judgeTableHead.appendChild(th)
+                    judges.push(judgeInfo[key][innerkey])
+                }
+                let maxJudgeLength = 0
+                for (el of judges){
+                    if (el.length  > maxJudgeLength){
+                        maxJudgeLength = el.length
+                    }
+                }
+                let currRow = 0
+                for (let i = 0; i< maxJudgeLength; i++){
+                    let tr = document.createElement("tr")
+                    for (el of judges){
+                        let td = document.createElement("td")
+                        if (el[currRow]){
+                            td.textContent = `${el[currRow][Object.keys(el[currRow])[0]]} (${Object.keys(el[currRow])[0]})`
+                        }
+                        else {
+                            td.textContent = " "
+                        }
+                        tr.appendChild(td)
+
+                    }
+                    judgeTableBody.appendChild(tr)
+                    currRow++
+                }
+                judgeTable.appendChild(judgeTableHead)
+                judgeTable.appendChild(judgeTableBody)
+                
+                infoContent.appendChild(h2pt2)
+                infoContent.appendChild(judgeTable)
+                break
+            }
+            
+
+
+        }
+        
 
     }
 
