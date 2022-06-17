@@ -22,7 +22,7 @@ function hideContent(){
     document.getElementById("infoContent").setAttribute("style", "display: none")
     document.getElementById("responsesContent").setAttribute("style", "display: none")
     document.getElementById("graphContent").setAttribute("style", "display: none")
-
+    document.getElementById("memberContent").setAttribute("style", "display: none")
     const buttons = document.getElementsByClassName("options")
     for (button of buttons){
         button.setAttribute("style", "color: white")
@@ -517,9 +517,176 @@ graph.addEventListener("click", function(){
     
 })
 
+
 hideContent()
-let mychart
+const sidenav = document.getElementById("sidenav")
 let responses = JSON.parse(localStorage.getItem("jsonResponses"))
+let namesByEmails = {}
+    for (let key in responses){
+        if (responses[key]["questionTitle"].toLowerCase().includes("name") && !(responses[key]["questionTitle"].toLowerCase().includes("partner"))){
+            for (let i = 0; i < responses[key]["responses"].length; i++){
+                namesByEmails[Object.keys(responses[key]["responses"][i])[0]] = responses[key]["responses"][i][Object.keys(responses[key]["responses"][i])[0]]
+            }
+            break
+        }
+}
+// {sd1: {"attending": "yes", judge: "not available", event: "ld"}}
+for (let key in namesByEmails){
+    let a = document.createElement("a")
+    a.textContent = namesByEmails[key]
+    a.classList.add("options")
+    a.id = key
+    a.addEventListener("click", function(){
+        
+        hideContent()
+        a.setAttribute("style", "color: #09BC8A")
+        const memberContent = document.getElementById("memberContent")
+        removeAllChildNodes(memberContent)
+        let id = a.id
+        studentInfo = {}
+        for (let key in responses){
+            if (responses[key]["questionTitle"].toLowerCase().includes("attend")){
+                let str = responses[key]["questionTitle"].split(" ")
+                let attendingIndex = 0
+                for (let i = 0; i < str.length; i++){
+                    if (str[i].toLowerCase().includes("attend")){
+                        attendingIndex = i
+                    }
+                }
+                let tourneyName = str.slice(attendingIndex + 1, str.length).join(" ")
+                let punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+                let letters = tourneyName.split('');
+                let cleanLetters = letters.filter(function(letter) {
+                    return punctuation.indexOf(letter) === -1;
+                });
+                
+                let cleanString = cleanLetters.join('');
+                studentInfo[cleanString] = {}
+                for (let i = 0; i < responses[key]["responses"].length; i++){
+                    if (Object.keys(responses[key]["responses"][i])[0] == id){
+                        studentInfo[cleanString]["attending"] = responses[key]["responses"][i][Object.keys(responses[key]["responses"][i])[0]]
+                    }
+                }
+            }
+        }
+        for (tourney in studentInfo){
+            for (let key in responses){
+                if (responses[key]["questionTitle"].toLowerCase().includes("event") && responses[key]["questionTitle"].toLowerCase().includes(tourney.toLowerCase())){
+                    for (let i = 0; i < responses[key]["responses"].length; i++){
+                        if (Object.keys(responses[key]["responses"][i])[0] == id){
+                            studentInfo[tourney]["event"] = responses[key]["responses"][i][Object.keys(responses[key]["responses"][i])[0]]
+                        }
+                    }
+                }
+ 
+            }
+            if (!("event" in studentInfo[tourney])){
+                studentInfo[tourney]["event"] = "n/a"
+            }
+        }
+        for (tourney in studentInfo){
+            for (let key in responses){
+                if (responses[key]["questionTitle"].toLowerCase().includes("judg") && responses[key]["questionTitle"].toLowerCase().includes("name") && responses[key]["questionTitle"].toLowerCase().includes(tourney.toLowerCase())){
+                    let flag = true
+                    for (let i = 0; i < responses[key]["responses"].length; i++){
+                        if (Object.keys(responses[key]["responses"][i])[0] == id){
+                            studentInfo[tourney]["judgeProvided"] = true
+                            flag = false
+                        }
+                    }
+                    if (flag == true){
+                        studentInfo[tourney]["judgeProvided"] = false
+
+                    }
+                }
+ 
+            }
+        }
+        let h1pt2 = document.createElement("h1")
+        h1pt2.textContent = "Overall"
+        h1pt2.setAttribute("style", "text-align: center;margin-top: 40px; background: transparent")   
+        h1pt2.classList.add("tourneyName")
+        memberContent.appendChild(h1pt2)
+        let attendingTourn = 0
+        let judgeProv = 0
+        let events = []
+        for (tourney in studentInfo){
+            if (studentInfo[tourney]["attending"] == "yes"){
+                attendingTourn++
+            }
+            if (studentInfo[tourney]["judgeProvided"] == true){
+                judgeProv++
+            }
+            events.push(studentInfo[tourney]["event"])
+        }
+        uniq = [...new Set(events)];
+
+        let numTournies = Object.keys(studentInfo).length
+        let tournamentsAttended = document.createElement("p")
+        tournamentsAttended.textContent = `Attending ${(attendingTourn/numTournies)*100}% of tournaments (${attendingTourn}/${numTournies})`
+        let judgeTourn = document.createElement("p")
+        judgeTourn.textContent = `Provided judges for ${judgeProv} tournaments`
+        let j = document.createElement("p")
+        j.textContent = `Judges provided for ${judgeProv / numTournies * 100}% of all tournies`
+        let j2 = document.createElement("p")
+        j2.textContent = `Judges provided for ${judgeProv / attendingTourn * 100}% of attended tournies `
+        let allevents = document.createElement("p")
+        allevents.textContent = `Events: ${uniq.join(", ")}`
+        tournamentsAttended.classList.add("pstyle")
+        judgeTourn.classList.add("pstyle")
+        j.classList.add("pstyle")
+        j2.classList.add("pstyle")
+        allevents.classList.add("pstyle")
+
+        memberContent.appendChild(tournamentsAttended)
+        memberContent.appendChild(judgeTourn)
+        memberContent.appendChild(j)
+        memberContent.appendChild(j2)
+        memberContent.appendChild(allevents)
+
+
+
+
+        let h1 = document.createElement("h1")
+        h1.textContent = "Tourney by Tourney"
+        h1.setAttribute("style", "text-align: center;margin-top: 40px; background: transparent")   
+        h1.classList.add("tourneyName")
+        memberContent.appendChild(h1)
+        for (tourney in studentInfo){ 
+            let h2 = document.createElement("h2")
+            h2.textContent = tourney
+            h2.setAttribute("style", "text-align: center;margin-top: 20px; background: transparent;")
+
+            let attending = document.createElement("p")
+            attending.textContent = "Attending: " + studentInfo[tourney]["attending"]
+            let event = document.createElement("p")
+            event.textContent = "Event: " + studentInfo[tourney]["event"]
+            let judge = document.createElement("p")
+            judge.textContent = "Judge Provided: " + studentInfo[tourney]["judgeProvided"]
+            memberContent.appendChild(h2)
+            memberContent.appendChild(attending)
+            memberContent.appendChild(event)
+            memberContent.appendChild(judge)
+            attending.classList.add("pstyle")
+            event.classList.add("pstyle")
+            judge.classList.add("pstyle")
+
+            
+
+
+        }
+        
+        console.log(studentInfo)
+
+        memberContent.setAttribute("style", "display: block")
+
+    })
+    sidenav.appendChild(a)
+
+
+}
+
+let mychart
 entry.click();
 
 
