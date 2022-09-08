@@ -25,6 +25,7 @@ slide = (direction) => {
       const movedown = document.getElementById("movedown")
       movedown.setAttribute("style", "display: block")
     }
+
     else if (currpage == 2){
       setTimeout(() => {
          const questionResponses = document.getElementById("questionResponses")
@@ -37,6 +38,14 @@ slide = (direction) => {
     else {
       const moveup = document.getElementById("moveup")
       moveup.setAttribute("style", "display: block")
+      const questionResponses = document.getElementById("questionResponses")
+      navigator.clipboard
+           .readText()
+           .then(
+               cliptext =>
+                  (questionResponses.innerText = cliptext),
+                  err => console.log(err)
+           );
     }
     direction === "next" ? translate -= translateAmount : translate += translateAmount;
 
@@ -44,18 +53,18 @@ slide = (direction) => {
       pages => (pages.style.transform = `translateY(${translate}%)`)
     );
 }
-const questionResponses = document.getElementById("questionResponses")
+//const questionResponses = document.getElementById("questionResponses")
 
-document.addEventListener('DOMContentLoaded',function(){
-  //questionResponses.innerText = localStorage.getItem("data")
-       navigator.clipboard
-           .readText()
-           .then(
-               cliptext =>
-                  (questionResponses.innerText = cliptext),
-                  err => console.log(err)
-           );
-});
+// document.addEventListener('DOMContentLoaded',function(){
+//   //questionResponses.innerText = localStorage.getItem("data")
+//        navigator.clipboard
+//            .readText()
+//            .then(
+//                cliptext =>
+//                   (questionResponses.innerText = cliptext),
+//                   err => console.log(err)
+//            );
+// });
 
 //questionResponses.textContent = JSON.stringify(responsesByQuestion)
 
