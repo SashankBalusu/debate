@@ -108,6 +108,7 @@ entry.addEventListener("click", function(){
     removeAllChildNodes(infoContent)
     //finding tourneys
     let tourneyInfo = {}
+    let tourneyInfoNotGoing = {}
     let judgeInfo = {}
 
     for (let key in responses){
@@ -141,6 +142,8 @@ entry.addEventListener("click", function(){
                 let formDict = tourneyInfo[Object.keys(tourneyInfo)[currTourney]]
                 formDict[resps[Object.keys(resps)[0]]] = []
                 tourneyInfo[Object.keys(tourneyInfo)[currTourney]] = formDict
+                tourneyInfoNotGoing[Object.keys(tourneyInfo)[currTourney]] = ""
+
 
             }
         }
@@ -159,6 +162,7 @@ entry.addEventListener("click", function(){
     }
     for (let tourney in tourneyInfo){
         let peoplegoing = {}
+        let notgoing = []
         for (let key in responses){
             if (responses[key]["questionTitle"].toLowerCase().includes("attend") && responses[key]["questionTitle"].includes(tourney)){
                 let currQuestionResp = responses[key]["responses"]
@@ -166,10 +170,15 @@ entry.addEventListener("click", function(){
                     if (item[Object.keys(item)[0]].toLowerCase() == "yes"){
                         peoplegoing[Object.keys(item)[0]] = ""
                     }
+                    else {
+                        notgoing.push(Object.keys(item)[0])
+                        console.log(notgoing)
+                    }
                 }
 
             }
         }
+        tourneyInfoNotGoing[Object.keys(tourneyInfo)[currTourney]] = notgoing
         for (let key in responses){
             if (responses[key]["questionTitle"].toLowerCase().includes("event") && responses[key]["questionTitle"].includes(tourney)){
                 let currQuestionResp = responses[key]["responses"]
@@ -192,9 +201,23 @@ entry.addEventListener("click", function(){
                                 if (innerinnerkey == tourney){
                                     for (let finalkey in tourneyInfo[innerinnerkey]){
                                         if (finalkey == peoplegoing[innerkey]){
+                                            // let flag = false
+                                            // for (let i = 0; i < tourneyInfo[innerinnerkey][finalkey].length; i++){
+                                            //     if (item[Object.keys(item)[0]] in tourneyInfo[innerinnerkey][finalkey][i]){
+                                            //         flag = true
+                                            //         break
+                                            //     }
+                                            // }
+                                            // if (flag == false){
+                                            //     let formPartnerDict = {}
+                                            //     formPartnerDict[namesByEmails[innerkey]] = item[Object.keys(item)[0]]
+                                            //     tourneyInfo[innerinnerkey][finalkey].push(formPartnerDict)
+                                            // }
                                             let formPartnerDict = {}
                                             formPartnerDict[namesByEmails[innerkey]] = item[Object.keys(item)[0]]
                                             tourneyInfo[innerinnerkey][finalkey].push(formPartnerDict)
+                                            
+                                            
                                         }
                                     }
                                 }
@@ -212,7 +235,6 @@ entry.addEventListener("click", function(){
                             let formJudgeDict = {}
                             formJudgeDict[namesByEmails[Object.keys(el)[0]]] = Object.keys(el)[0]
                             judgeInfo[tourney][el[Object.keys(el)[0]]].push(formJudgeDict)
-                            //console.log(Object.keys(el)[0])
                         }
                         else {
                             for (let newkey in responses){
@@ -237,7 +259,6 @@ entry.addEventListener("click", function(){
                             let formJudgeDict = {}
                             formJudgeDict[namesByEmails[Object.keys(el)[0]]] = Object.keys(el)[0]
                             judgeInfo[tourney][el[Object.keys(el)[0]]] = [formJudgeDict]
-                            //console.log(Object.keys(el)[0])
                         }
                         else {
                             for (let newkey in responses){
@@ -259,8 +280,9 @@ entry.addEventListener("click", function(){
                 }
             }
         }
-        console.log(judgeInfo)
-        console.log(tourneyInfo)
+
+
+        
 
     }
     for (let tourney in tourneyInfo){      
@@ -287,12 +309,23 @@ entry.addEventListener("click", function(){
             thead.appendChild(th)
             entries.push(tourneyInfo[tourney][key])
         }
+        let th = document.createElement("th")
+        th.textContent = "Not Entered"
+        th.colSpan = "1"
+        thead.appendChild(th)
         maxLength = 0
         for (let el of entries){
+            console.log(el)
             if (el.length > maxLength){
                 maxLength = el.length
             }
 
+        }
+        console.log(tourney, tourneyInfoNotGoing[tourney].length)
+
+        if (tourneyInfoNotGoing[tourney].length > maxLength){
+            console.log(tourney, tourneyInfoNotGoing[tourney].length)
+            maxLength = tourneyInfoNotGoing[tourney].length
         }
         let currRow = 0
         //entries = [[{"hi": "aergae"}, {"aergae": "hi"}], [{"we": "wewewewe"}, {"wewewewe": "we"}], [{"aergerag": "pole"}, {"pole": "aergerag"}]]
@@ -329,7 +362,6 @@ entry.addEventListener("click", function(){
                         td2.setAttribute("style", "color: #fe7968")
 
                     }
-                    console.log(el)
                     td2.textContent = el[currRow][Object.keys(el[currRow])[0]]
                 }
                 else {
@@ -338,6 +370,10 @@ entry.addEventListener("click", function(){
                 tr.appendChild(td)
                 tr.appendChild(td2)
             }
+
+            let td = document.createElement("td")
+            td.textContent = tourneyInfoNotGoing[tourney][currRow]
+            tr.appendChild(td)
             tbody.appendChild(tr)
             currRow++
         }
@@ -501,7 +537,6 @@ graph.addEventListener("click", function(){
             for (el of labelArr){
                 dataArr.push(dataObj[el])
             }
-            console.log(dataArr, labelArr)
             let cont = document.createElement("div")
             cont.classList.add("chart-container")
             let canvas = document.createElement("canvas")
@@ -676,7 +711,6 @@ for (let key in namesByEmails){
 
         }
         
-        console.log(studentInfo)
 
         memberContent.setAttribute("style", "display: block")
 
