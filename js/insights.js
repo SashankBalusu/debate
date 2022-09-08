@@ -84,10 +84,11 @@ function createChart(el,labelArr, dataArr, question){
                 } 
             },
             tooltips: {
-                enabled: false,
+                enabled: true,
                 bodyFontColor: "#efefef",
-                fontStyle: 'Normal',
-                bodyFontFamily: "Montserrat",
+                fontStyle: 'bold',
+                fontSize: 20,
+                bodyFontFamily: "Heebo",
                 cornerRadius: 2,
                 backgroundColor: "#333",
                 xPadding: 7,
@@ -172,7 +173,6 @@ entry.addEventListener("click", function(){
                     }
                     else {
                         notgoing.push(Object.keys(item)[0])
-                        console.log(notgoing)
                     }
                 }
 
@@ -315,16 +315,13 @@ entry.addEventListener("click", function(){
         thead.appendChild(th)
         maxLength = 0
         for (let el of entries){
-            console.log(el)
             if (el.length > maxLength){
                 maxLength = el.length
             }
 
         }
-        console.log(tourney, tourneyInfoNotGoing[tourney].length)
 
         if (tourneyInfoNotGoing[tourney].length > maxLength){
-            console.log(tourney, tourneyInfoNotGoing[tourney].length)
             maxLength = tourneyInfoNotGoing[tourney].length
         }
         let currRow = 0
