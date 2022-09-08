@@ -1,3 +1,9 @@
+// function receiveMessage(e){
+//   console.log("hi")
+//     console.log("Message Received: "+e.data);
+// }
+// window.addEventListener('message',receiveMessage);
+localStorage.clear()
 const moveup = document.getElementById("moveup")
 moveup.setAttribute("style", "display: none")
 let currpage = 0
@@ -41,14 +47,14 @@ slide = (direction) => {
 const questionResponses = document.getElementById("questionResponses")
 
 document.addEventListener('DOMContentLoaded',function(){
-  questionResponses.innerText = localStorage.getItem("data")
-      //  navigator.clipboard
-      //      .readText()
-      //      .then(
-      //          cliptext =>
-      //             (questionResponses.innerText = cliptext),
-      //             err => console.log(err)
-      //      );
+  //questionResponses.innerText = localStorage.getItem("data")
+       navigator.clipboard
+           .readText()
+           .then(
+               cliptext =>
+                  (questionResponses.innerText = cliptext),
+                  err => console.log(err)
+           );
 });
 
 //questionResponses.textContent = JSON.stringify(responsesByQuestion)
